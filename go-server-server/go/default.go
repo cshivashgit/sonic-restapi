@@ -10,6 +10,7 @@ import (
     "time"
     "github.com/gorilla/mux"
     "os/exec"
+    "encoding/json"
 )
 
 const RESRC_EXISTS int = 0
@@ -17,6 +18,15 @@ const DEP_MISSING int  = 1
 const DELETE_DEP  int  = 2
 const DEFAULT_PING_COUNT_STR string = "4"
 const PING_COMMAND_STR string = "ping"
+
+func NmsLldpInfo(w http.ResponseWriter, r *http.Request) {
+	lldpMain := lldpInfo()
+	if lldpMain != nil {
+		json.NewEncoder(w).Encode(lldpMain)
+	} else {
+		w.Write([]byte("system info is empty"))
+	}
+}
 
 func StateHeartbeatGet(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")

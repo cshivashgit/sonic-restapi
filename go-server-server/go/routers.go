@@ -357,4 +357,12 @@ var routes = Routes{
         Ping,
     },
 
+    // Adding LLDP API
+    Route{
+        "NmsLldpInfo",
+        "GET",
+        "/v1/NMS/lldp",
+        NmsLldpInfo,
+    },
+
 }

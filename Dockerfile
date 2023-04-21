@@ -29,6 +29,12 @@ RUN mkdir /usr/sbin/cert/server
 COPY cert/client/* /usr/sbin/cert/client/
 COPY cert/server/* /usr/sbin/cert/server/
 
+ENV DOCKERVERSION=20.10.14
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
+  && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 \
+                 -C /usr/local/bin docker/docker \
+  && rm docker-${DOCKERVERSION}.tgz
+
 RUN apt-get autoremove -y \
  && apt-get clean \
  && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
